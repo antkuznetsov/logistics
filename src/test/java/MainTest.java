@@ -97,7 +97,32 @@ public class MainTest {
         System.out.println("**********************************************");
         System.out.println("ПОПУЛЯРНЫЙ ПРОДУКТ");
 
-        //code here
+        try {
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT name, SUM(count) AS count " +
+                            "FROM shipment__product " +
+                            "INNER JOIN shipment ship on shipment__product.shipment_id = ship.id " +
+                            "INNER JOIN product prod on shipment__product.product_id = prod.id " +
+                            "WHERE DATE_PART('MONTH', r_date_actual) = DATE_PART('MONTH', now()) " +
+                            "GROUP BY name " +
+                            "ORDER BY count DESC " +
+                            "LIMIT 2"
+            );
+
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                StringBuilder result = new StringBuilder();
+
+                result.append(resultSet.getString(1))
+                        .append(" (продано штук: ").append(resultSet.getInt(2)).append(")");
+
+                System.out.println(result.toString());
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         System.out.println("**********************************************\n");
     }
