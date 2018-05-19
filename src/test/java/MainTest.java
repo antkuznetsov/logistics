@@ -23,7 +23,33 @@ public class MainTest {
         System.out.println("**********************************************");
         System.out.println("ДОЛЖНИКИ");
 
-        //code here
+        try {
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT org.id, org.name, SUM(amount - (SELECT SUM(amount) as amount FROM payment WHERE contract_id = contract.id GROUP BY contract_id)) AS debt " +
+                            "FROM contract " +
+                            "INNER JOIN organization org " +
+                            "    ON contract.organization_id = org.id " +
+                            "WHERE (amount - (SELECT SUM(amount) as amount FROM payment WHERE contract_id = contract.id GROUP BY contract_id) > 0) AND " +
+                            "      ((SELECT COUNT(*) FROM shipment WHERE contract_id = contract.id AND r_date_actual IS NULL) = 0) " +
+                            "GROUP BY org.id " +
+                            "ORDER BY debt DESC " +
+                            "LIMIT 2"
+            );
+
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                StringBuilder result = new StringBuilder();
+
+                result.append(resultSet.getString(2))
+                        .append(" (долг: ").append(resultSet.getInt(3)).append(")");
+
+                System.out.println(result.toString());
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         System.out.println("**********************************************\n");
     }
