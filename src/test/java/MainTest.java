@@ -85,10 +85,11 @@ public class MainTest {
                 System.out.println(result.toString());
             }
 
-            System.out.println("**********************************************\n");
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        System.out.println("**********************************************\n");
     }
 
     @Test
@@ -106,7 +107,31 @@ public class MainTest {
         System.out.println("**********************************************");
         System.out.println("œŒœ”Àﬂ–Õ€… √Œ–Œƒ");
 
-        //code here
+        try {
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT city, COUNT(city) AS count " +
+                            "FROM shipment " +
+                            "INNER JOIN location loc " +
+                            "    ON shipment.location_id = loc.id " +
+                            "GROUP BY city " +
+                            "ORDER BY count DESC " +
+                            "LIMIT 1"
+            );
+
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                StringBuilder result = new StringBuilder();
+
+                result.append(resultSet.getString(1))
+                        .append(" (‰ÓÒÚ‡‚ÓÍ: ").append(resultSet.getInt(2)).append(")");
+
+                System.out.println(result.toString());
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         System.out.println("**********************************************\n");
     }
