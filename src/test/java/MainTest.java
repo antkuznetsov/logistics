@@ -33,20 +33,58 @@ public class MainTest {
         System.out.println("**********************************************");
         System.out.println("ЛУЧШИЕ КЛИЕНТЫ");
         try {
-            String query = "SELECT * FROM organization ORDER BY id";
+            System.out.println("по заключенным договорам");
 
-            PreparedStatement statement = connection.prepareStatement(query);
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT org.id, name, SUM(amount) AS amount " +
+                            "FROM contract " +
+                            "INNER JOIN organization org " +
+                            "   ON contract.organization_id = org.id " +
+                            "GROUP BY org.id " +
+                            "ORDER BY amount DESC " +
+                            "LIMIT 2"
+            );
 
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
                 StringBuilder result = new StringBuilder();
 
-                result.append(resultSet.getInt(1));
-                result.append(resultSet.getString(2));
+                result.append(resultSet.getInt(1))
+                        .append(" | ")
+                        .append(resultSet.getString(2)).append(" | ")
+                        .append(resultSet.getInt(3));
 
                 System.out.println(result.toString());
             }
+
+            System.out.println("по фактическим платежам");
+
+            statement = connection.prepareStatement(
+                    "SELECT org.id, org.name, SUM(payment.amount) as amount " +
+                            "FROM payment " +
+                            "INNER JOIN contract cont " +
+                            "    ON payment.contract_id = cont.id " +
+                            "INNER JOIN  organization org " +
+                            "    ON cont.organization_id = org.id " +
+                            "GROUP BY org.id " +
+                            "ORDER BY amount DESC " +
+                            "LIMIT 2"
+            );
+
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                StringBuilder result = new StringBuilder();
+
+                result.append(resultSet.getInt(1))
+                        .append(" | ")
+                        .append(resultSet.getString(2)).append(" | ")
+                        .append(resultSet.getInt(3));
+
+                System.out.println(result.toString());
+            }
+
             System.out.println("**********************************************\n");
         } catch (SQLException e) {
             e.printStackTrace();
