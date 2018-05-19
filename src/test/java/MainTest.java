@@ -116,7 +116,7 @@ public class MainTest {
                             "GROUP BY city " +
                             "ORDER BY count DESC " +
                             "LIMIT 1"
-            );
+            ); //todo: перенести города в отдельную таблицу
 
             ResultSet resultSet = statement.executeQuery();
 
@@ -141,7 +141,54 @@ public class MainTest {
         System.out.println("**********************************************");
         System.out.println("ДОЛГИЕ НАПРАВЛЕНИЯ");
 
-        //code here
+        try {
+            System.out.println("по среднему ожиданию");
+
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT city, AVG((r_date_actual - s_date_actual)) AS delay " +
+                            "FROM shipment " +
+                            "INNER JOIN location loc " +
+                            "  ON shipment.location_id = loc.id " +
+                            "GROUP BY city " +
+                            "LIMIT 2"
+            ); //todo: перенести города в отдельную таблицу
+
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                StringBuilder result = new StringBuilder();
+
+                result.append(resultSet.getString(1))
+                        .append(" (дней ожидания: ").append(resultSet.getInt(2)).append(")");
+
+                System.out.println(result.toString());
+            }
+
+            System.out.println("по суммарному ожиданию");
+
+            statement = connection.prepareStatement(
+                    "SELECT city, SUM ((r_date_actual - s_date_actual)) AS delay " +
+                            "FROM shipment " +
+                            "INNER JOIN location loc " +
+                            "  ON shipment.location_id = loc.id " +
+                            "GROUP BY city " +
+                            "LIMIT 2"
+            ); //todo: перенести города в отдельную таблицу
+
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                StringBuilder result = new StringBuilder();
+
+                result.append(resultSet.getString(1))
+                        .append(" (дней ожидания: ").append(resultSet.getInt(2)).append(")");
+
+                System.out.println(result.toString());
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         System.out.println("**********************************************\n");
     }
