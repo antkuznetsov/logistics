@@ -14,14 +14,14 @@ public class MainTest {
         try {
             connection = DriverManager.getConnection("jdbc:postgresql://localhost/" + DBNAME, DBLOGIN, DBPASSWORD);
         } catch (SQLException e) {
-            System.out.println("Проблема с соединением с БД!");
+            System.out.println("РџСЂРѕР±Р»РµРјР° СЃ СЃРѕРµРґРёРЅРµРЅРёРµРј СЃ Р‘Р”!");
         }
     }
 
     @Test
     public void debtors() {
         System.out.println("**********************************************");
-        System.out.println("ДОЛЖНИКИ");
+        System.out.println("Р”РћР›Р–РќРРљР");
 
         //code here
 
@@ -31,9 +31,9 @@ public class MainTest {
     @Test
     public void bestCustomers() {
         System.out.println("**********************************************");
-        System.out.println("ЛУЧШИЕ КЛИЕНТЫ");
+        System.out.println("Р›РЈР§РЁРР• РљР›РР•РќРўР«");
         try {
-            System.out.println("по заключенным договорам");
+            System.out.println("РїРѕ Р·Р°РєР»СЋС‡РµРЅРЅС‹Рј РґРѕРіРѕРІРѕСЂР°Рј");
 
             PreparedStatement statement = connection.prepareStatement(
                     "SELECT org.id, name, SUM(amount) AS amount " +
@@ -58,7 +58,7 @@ public class MainTest {
                 System.out.println(result.toString());
             }
 
-            System.out.println("по фактическим платежам");
+            System.out.println("РїРѕ С„Р°РєС‚РёС‡РµСЃРєРёРј РїР»Р°С‚РµР¶Р°Рј");
 
             statement = connection.prepareStatement(
                     "SELECT org.id, org.name, SUM(payment.amount) as amount " +
@@ -95,7 +95,7 @@ public class MainTest {
     @Test
     public void popularProduct() {
         System.out.println("**********************************************");
-        System.out.println("ПОПУЛЯРНЫЙ ПРОДУКТ");
+        System.out.println("РџРћРџРЈР›РЇР РќР«Р™ РџР РћР”РЈРљРў");
 
         //code here
 
@@ -105,7 +105,7 @@ public class MainTest {
     @Test
     public void popularCity() {
         System.out.println("**********************************************");
-        System.out.println("ПОПУЛЯРНЫЙ ГОРОД");
+        System.out.println("РџРћРџРЈР›РЇР РќР«Р™ Р“РћР РћР”");
 
         try {
             PreparedStatement statement = connection.prepareStatement(
@@ -116,7 +116,7 @@ public class MainTest {
                             "GROUP BY city " +
                             "ORDER BY count DESC " +
                             "LIMIT 1"
-            ); //todo: перенести города в отдельную таблицу
+            ); //todo: РїРµСЂРµРЅРµСЃС‚Рё РіРѕСЂРѕРґР° РІ РѕС‚РґРµР»СЊРЅСѓСЋ С‚Р°Р±Р»РёС†Сѓ
 
             ResultSet resultSet = statement.executeQuery();
 
@@ -124,7 +124,7 @@ public class MainTest {
                 StringBuilder result = new StringBuilder();
 
                 result.append(resultSet.getString(1))
-                        .append(" (доставок: ").append(resultSet.getInt(2)).append(")");
+                        .append(" (РґРѕСЃС‚Р°РІРѕРє: ").append(resultSet.getInt(2)).append(")");
 
                 System.out.println(result.toString());
             }
@@ -139,10 +139,10 @@ public class MainTest {
     @Test
     public void longDirections() {
         System.out.println("**********************************************");
-        System.out.println("ДОЛГИЕ НАПРАВЛЕНИЯ");
+        System.out.println("Р”РћР›Р“РР• РќРђРџР РђР’Р›Р•РќРРЇ");
 
         try {
-            System.out.println("по среднему ожиданию");
+            System.out.println("РїРѕ СЃСЂРµРґРЅРµРјСѓ РѕР¶РёРґР°РЅРёСЋ");
 
             PreparedStatement statement = connection.prepareStatement(
                     "SELECT city, AVG((r_date_actual - s_date_actual)) AS delay " +
@@ -151,7 +151,7 @@ public class MainTest {
                             "  ON shipment.location_id = loc.id " +
                             "GROUP BY city " +
                             "LIMIT 2"
-            ); //todo: перенести города в отдельную таблицу
+            ); //todo: РїРµСЂРµРЅРµСЃС‚Рё РіРѕСЂРѕРґР° РІ РѕС‚РґРµР»СЊРЅСѓСЋ С‚Р°Р±Р»РёС†Сѓ
 
             ResultSet resultSet = statement.executeQuery();
 
@@ -159,12 +159,12 @@ public class MainTest {
                 StringBuilder result = new StringBuilder();
 
                 result.append(resultSet.getString(1))
-                        .append(" (дней ожидания: ").append(resultSet.getInt(2)).append(")");
+                        .append(" (РґРЅРµР№ РѕР¶РёРґР°РЅРёСЏ: ").append(resultSet.getInt(2)).append(")");
 
                 System.out.println(result.toString());
             }
 
-            System.out.println("по суммарному ожиданию");
+            System.out.println("РїРѕ СЃСѓРјРјР°СЂРЅРѕРјСѓ РѕР¶РёРґР°РЅРёСЋ");
 
             statement = connection.prepareStatement(
                     "SELECT city, SUM ((r_date_actual - s_date_actual)) AS delay " +
@@ -173,7 +173,7 @@ public class MainTest {
                             "  ON shipment.location_id = loc.id " +
                             "GROUP BY city " +
                             "LIMIT 2"
-            ); //todo: перенести города в отдельную таблицу
+            ); //todo: РїРµСЂРµРЅРµСЃС‚Рё РіРѕСЂРѕРґР° РІ РѕС‚РґРµР»СЊРЅСѓСЋ С‚Р°Р±Р»РёС†Сѓ
 
             resultSet = statement.executeQuery();
 
@@ -181,7 +181,7 @@ public class MainTest {
                 StringBuilder result = new StringBuilder();
 
                 result.append(resultSet.getString(1))
-                        .append(" (дней ожидания: ").append(resultSet.getInt(2)).append(")");
+                        .append(" (РґРЅРµР№ РѕР¶РёРґР°РЅРёСЏ: ").append(resultSet.getInt(2)).append(")");
 
                 System.out.println(result.toString());
             }
