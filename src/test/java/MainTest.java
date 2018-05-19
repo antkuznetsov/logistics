@@ -76,10 +76,8 @@ public class MainTest {
             while (resultSet.next()) {
                 StringBuilder result = new StringBuilder();
 
-                result.append(resultSet.getInt(1))
-                        .append(" | ")
-                        .append(resultSet.getString(2)).append(" | ")
-                        .append(resultSet.getInt(3));
+                result.append(resultSet.getString(2))
+                        .append(" (договоров на сумму: ").append(resultSet.getInt(3)).append(")");
 
                 System.out.println(result.toString());
             }
@@ -103,10 +101,8 @@ public class MainTest {
             while (resultSet.next()) {
                 StringBuilder result = new StringBuilder();
 
-                result.append(resultSet.getInt(1))
-                        .append(" | ")
-                        .append(resultSet.getString(2)).append(" | ")
-                        .append(resultSet.getInt(3));
+                result.append(resultSet.getString(2))
+                        .append(" (платежей на сумму: ").append(resultSet.getInt(3)).append(")");
 
                 System.out.println(result.toString());
             }
