@@ -5,7 +5,7 @@
 Отчеты строятся непосредственно в тестах и выводятся в консоль.
 
 ### Схема БД
-![Схема БД](https://github.com/antkuznetsov/logistics/raw/master/db_schema.png)
+![Схема БД](https://github.com/antkuznetsov/logistics/raw/master/schema.png)
 
 ### Пример отчётов
 
