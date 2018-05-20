@@ -49,6 +49,9 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <sql>
+            <![CDATA[ALTER TABLE payment ADD CONSTRAINT amount CHECK (amount <= 500);]]>
+        </sql>
     </changeSet>
     <changeSet author="anton.kuznetsov (generated)" id="1526809616390-5">
         <createTable catalogName="logistics" schemaName="public" tableName="shipment">
@@ -148,10 +151,10 @@ NO ACTION" referencedColumnNames="id" referencedTableCatalogName="logistics" ref
             INSERT INTO public.contract (id, amount, details, organization_id) VALUES (3, 500, 'Тест 3', 1);
 
             <!--Таблица «Платеж по договору»-->
-            INSERT INTO public.payment (id, type, date, amount, contract_id) VALUES (1, '', '', 25000, 1);
-            INSERT INTO public.payment (id, type, date, amount, contract_id) VALUES (3, '', '', 1000, 2);
-            INSERT INTO public.payment (id, type, date, amount, contract_id) VALUES (4, '', '', 2700, 1);
-            INSERT INTO public.payment (id, type, date, amount, contract_id) VALUES (5, '', '', 2300, 2);
+            INSERT INTO public.payment (id, type, date, amount, contract_id) VALUES (1, '', '', 250, 1);
+            INSERT INTO public.payment (id, type, date, amount, contract_id) VALUES (3, '', '', 100, 2);
+            INSERT INTO public.payment (id, type, date, amount, contract_id) VALUES (4, '', '', 270, 1);
+            INSERT INTO public.payment (id, type, date, amount, contract_id) VALUES (5, '', '', 230, 2);
             INSERT INTO public.payment (id, type, date, amount, contract_id) VALUES (2, '', '', 500, 3);
 
             <!--Таблица «Доставка»-->
