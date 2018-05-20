@@ -54,9 +54,7 @@
     </edge>
   </edges>
   <settings layout="Hierarchic Group" zoom="1.0" x="357.5" y="312.5" />
-  <SelectedNodes>
-    <node>d634982f-a493-4d18-bdf7-039786df730c.TABLE:logistics.public.shipment__product</node>
-  </SelectedNodes>
+  <SelectedNodes />
   <Categories>
     <Category>Key columns</Category>
     <Category>Columns</Category>
