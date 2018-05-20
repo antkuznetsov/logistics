@@ -105,29 +105,33 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="anton.kuznetsov (generated)" id="1526809616390-9">
+    <changeSet author="anton.kuznetsov (generated)" id="1526818176077-9">
+        <addForeignKeyConstraint baseColumnNames="contract_id" baseTableCatalogName="logistics" baseTableName="shipment" baseTableSchemaName="public" constraintName="contract_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableCatalogName="logistics" referencedTableName="contract" referencedTableSchemaName="public"/>
+    </changeSet>
+
+    <changeSet author="anton.kuznetsov (generated)" id="1526809616390-10">
         <addForeignKeyConstraint baseColumnNames="product_id" baseTableCatalogName="logistics" baseTableName="shipment__product" baseTableSchemaName="public" constraintName="product_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="
 NO ACTION" referencedColumnNames="id" referencedTableCatalogName="logistics" referencedTableName="product" referencedTableSchemaName="public"/>
     </changeSet>
-    <changeSet author="anton.kuznetsov (generated)" id="1526809616390-10">
+    <changeSet author="anton.kuznetsov (generated)" id="1526809616390-11">
         <addForeignKeyConstraint baseColumnNames="contract_id" baseTableCatalogName="logistics" baseTableName="audit" baseTableSchemaName="public" constraintName="contract_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
                                  referencedColumnNames="id" referencedTableCatalogName="logistics" referencedTableName="contract" referencedTableSchemaName="public"/>
     </changeSet>
-    <changeSet author="anton.kuznetsov (generated)" id="1526809616390-11">
+    <changeSet author="anton.kuznetsov (generated)" id="1526809616390-12">
         <addForeignKeyConstraint baseColumnNames="organization_id" baseTableCatalogName="logistics" baseTableName="contract" baseTableSchemaName="public" constraintName="organization_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate=
                 "NO ACTION" referencedColumnNames="id" referencedTableCatalogName="logistics" referencedTableName="organization" referencedTableSchemaName="public"/>
     </changeSet>
-    <changeSet author="anton.kuznetsov (generated)" id="1526809616390-12">
+    <changeSet author="anton.kuznetsov (generated)" id="1526809616390-13">
         <addForeignKeyConstraint baseColumnNames="shipment_id" baseTableCatalogName="logistics" baseTableName="shipment__product" baseTableSchemaName="public" constraintName="shipment_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate
                 ="NO ACTION" referencedColumnNames="id" referencedTableCatalogName="logistics" referencedTableName="shipment" referencedTableSchemaName="public"/>
     </changeSet>
-    <changeSet author="anton.kuznetsov (generated)" id="1526809616390-13">
+    <changeSet author="anton.kuznetsov (generated)" id="1526809616390-14">
         <addForeignKeyConstraint baseColumnNames="location_id" baseTableCatalogName="logistics" baseTableName="shipment" baseTableSchemaName="public" constraintName="location_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableCatalogName="logistics" referencedTableName="location" referencedTableSchemaName="public"/>
     </changeSet>
-    <changeSet author="anton.kuznetsov (generated)" id="1526809616390-14">
+    <changeSet author="anton.kuznetsov (generated)" id="1526809616390-15">
         <addForeignKeyConstraint baseColumnNames="contract_id" baseTableCatalogName="logistics" baseTableName="payment" baseTableSchemaName="public" constraintName="contract_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableCatalogName="logistics" referencedTableName="contract" referencedTableSchemaName="public"/>
     </changeSet>
-    <changeSet author="anton.kuznetsov (generated)" id="1526809616390-15">
+    <changeSet author="anton.kuznetsov (generated)" id="1526809616390-16">
         <sql>
             <!--Таблица «Организация-заказчик»-->
             INSERT INTO public.organization (id, name) VALUES (1, 'ООО Бестранк');
