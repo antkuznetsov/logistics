@@ -1,74 +1,173 @@
-<databaseChangeLog
-        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
-
-    <changeSet id="create_organization" author="antkuznetsov">
-        <createTable tableName="organization">
-            <column name="id" type="int">
-                <constraints primaryKey="true" nullable="false"/>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+    <changeSet author="anton.kuznetsov (generated)" id="1526809616390-1">
+        <createTable catalogName="logistics" schemaName="public" tableName="audit">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true" primaryKeyName="audit_pkey"/>
             </column>
-            <column name="name" type="varchar(50)">
+            <column name="contract_id" type="INT4">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
-
-    <changeSet id="create_product" author="antkuznetsov">
-        <createTable tableName="product">
-            <column name="id" type="int">
-                <constraints primaryKey="true" nullable="false"/>
+    <changeSet author="anton.kuznetsov (generated)" id="1526809616390-2">
+        <createTable catalogName="logistics" schemaName="public" tableName="location">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true" primaryKeyName="pk_location"/>
             </column>
-            <column name="name" type="varchar(50)">
+            <column name="city" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address" type="VARCHAR(50)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
-
-    <changeSet id="create_location" author="antkuznetsov">
-        <createTable tableName="location">
-            <column name="id" type="int">
-                <constraints primaryKey="true" nullable="false"/>
+    <changeSet author="anton.kuznetsov (generated)" id="1526809616390-3">
+        <createTable catalogName="logistics" schemaName="public" tableName="organization">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true" primaryKeyName="pk_organization"/>
             </column>
-            <column name="city" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="address" type="varchar(50)">
+            <column name="name" type="VARCHAR(50)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
-
-    <changeSet id="create_contract" author="antkuznetsov">
-        <createTable tableName="contract">
-            <column name="id" type="int">
-                <constraints primaryKey="true" nullable="false"/>
+    <changeSet author="anton.kuznetsov (generated)" id="1526809616390-4">
+        <createTable catalogName="logistics" schemaName="public" tableName="payment">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true" primaryKeyName="pk_payment"/>
             </column>
-            <column name="amount" type="int"/>
-            <column name="details" type="varchar(50)">
+            <column name="type" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount" type="INT4"/>
+            <column name="contract_id" type="INT4">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
-
-    <changeSet id="create_payment" author="antkuznetsov">
-        <createTable tableName="payment">
-            <column name="id" type="int">
-                <constraints primaryKey="true" nullable="false"/>
+    <changeSet author="anton.kuznetsov (generated)" id="1526809616390-5">
+        <createTable catalogName="logistics" schemaName="public" tableName="shipment">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true" primaryKeyName="shipment_pkey"/>
             </column>
-            <column name="type" type="varchar(50)">
+            <column name="s_date_expected" type="date"/>
+            <column name="s_date_actual" type="date"/>
+            <column name="location_id" type="INT4">
                 <constraints nullable="false"/>
             </column>
-            <column name="date" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="amount" type="int"/>
+            <column name="r_date_expected" type="date"/>
+            <column name="r_date_actual" type="date"/>
+            <column name="contract_id" type="INT4"/>
         </createTable>
     </changeSet>
-
-    <changeSet id="tag-1.0" author="antkuznetsov">
-        <tagDatabase tag="1.0"/>
+    <changeSet author="anton.kuznetsov (generated)" id="1526809616390-6">
+        <createTable catalogName="logistics" schemaName="public" tableName="product">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true" primaryKeyName="pk_product"/>
+            </column>
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
     </changeSet>
+    <changeSet author="anton.kuznetsov (generated)" id="1526809616390-7">
+        <createTable catalogName="logistics" schemaName="public" tableName="contract">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true" primaryKeyName="pk_contract"/>
+            </column>
+            <column name="amount" type="INT4"/>
+            <column name="details" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="organization_id" type="INT4">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="anton.kuznetsov (generated)" id="1526809616390-8">
+        <createTable catalogName="logistics" schemaName="public" tableName="shipment__product">
+            <column name="shipment_id" type="INT4">
+                <constraints nullable="false"/>
+            </column>
+            <column name="product_id" type="INT4">
+                <constraints nullable="false"/>
+            </column>
+            <column name="count" type="INT4">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="anton.kuznetsov (generated)" id="1526809616390-9">
+        <addForeignKeyConstraint baseColumnNames="product_id" baseTableCatalogName="logistics" baseTableName="shipment__product" baseTableSchemaName="public" constraintName="product_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="
+NO ACTION" referencedColumnNames="id" referencedTableCatalogName="logistics" referencedTableName="product" referencedTableSchemaName="public"/>
+    </changeSet>
+    <changeSet author="anton.kuznetsov (generated)" id="1526809616390-10">
+        <addForeignKeyConstraint baseColumnNames="contract_id" baseTableCatalogName="logistics" baseTableName="audit" baseTableSchemaName="public" constraintName="contract_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableCatalogName="logistics" referencedTableName="contract" referencedTableSchemaName="public"/>
+    </changeSet>
+    <changeSet author="anton.kuznetsov (generated)" id="1526809616390-11">
+        <addForeignKeyConstraint baseColumnNames="organization_id" baseTableCatalogName="logistics" baseTableName="contract" baseTableSchemaName="public" constraintName="organization_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate=
+                "NO ACTION" referencedColumnNames="id" referencedTableCatalogName="logistics" referencedTableName="organization" referencedTableSchemaName="public"/>
+    </changeSet>
+    <changeSet author="anton.kuznetsov (generated)" id="1526809616390-12">
+        <addForeignKeyConstraint baseColumnNames="shipment_id" baseTableCatalogName="logistics" baseTableName="shipment__product" baseTableSchemaName="public" constraintName="shipment_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate
+                ="NO ACTION" referencedColumnNames="id" referencedTableCatalogName="logistics" referencedTableName="shipment" referencedTableSchemaName="public"/>
+    </changeSet>
+    <changeSet author="anton.kuznetsov (generated)" id="1526809616390-13">
+        <addForeignKeyConstraint baseColumnNames="location_id" baseTableCatalogName="logistics" baseTableName="shipment" baseTableSchemaName="public" constraintName="location_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableCatalogName="logistics" referencedTableName="location" referencedTableSchemaName="public"/>
+    </changeSet>
+    <changeSet author="anton.kuznetsov (generated)" id="1526809616390-14">
+        <addForeignKeyConstraint baseColumnNames="contract_id" baseTableCatalogName="logistics" baseTableName="payment" baseTableSchemaName="public" constraintName="contract_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableCatalogName="logistics" referencedTableName="contract" referencedTableSchemaName="public"/>
+    </changeSet>
+    <changeSet author="anton.kuznetsov (generated)" id="1526809616390-15">
+        <sql>
+            <!--Таблица «Организация-заказчик»-->
+            INSERT INTO public.organization (id, name) VALUES (1, 'ООО Бестранк');
+            INSERT INTO public.organization (id, name) VALUES (2, 'ООО Ай-Теко');
 
+            <!--Таблица «Товар»-->
+            INSERT INTO public.product (id, name) VALUES (1, 'iPhone');
+            INSERT INTO public.product (id, name) VALUES (2, 'Samsung');
+            INSERT INTO public.product (id, name) VALUES (3, 'Nokia');
+            INSERT INTO public.product (id, name) VALUES (4, 'Xiaomi');
+            INSERT INTO public.product (id, name) VALUES (5, 'Motorola');
+
+            <!--Таблица «Место доставки»-->
+            INSERT INTO public.location (id, city, address) VALUES (3, 'Санкт-Петербург', 'Лиговский 54');
+            INSERT INTO public.location (id, city, address) VALUES (1, 'Санкт-Петербург', 'Невский 151');
+            INSERT INTO public.location (id, city, address) VALUES (2, 'Иннополис', 'Спортивная 116');
+
+            <!--Таблица «Договор»-->
+            INSERT INTO public.contract (id, amount, details, organization_id) VALUES (1, 50000, 'Тест', 1);
+            INSERT INTO public.contract (id, amount, details, organization_id) VALUES (2, 10000, 'Тест 2', 2);
+            INSERT INTO public.contract (id, amount, details, organization_id) VALUES (3, 500, 'Тест 3', 1);
+
+            <!--Таблица «Платеж по договору»-->
+            INSERT INTO public.payment (id, type, date, amount, contract_id) VALUES (1, '', '', 25000, 1);
+            INSERT INTO public.payment (id, type, date, amount, contract_id) VALUES (3, '', '', 1000, 2);
+            INSERT INTO public.payment (id, type, date, amount, contract_id) VALUES (4, '', '', 2700, 1);
+            INSERT INTO public.payment (id, type, date, amount, contract_id) VALUES (5, '', '', 2300, 2);
+            INSERT INTO public.payment (id, type, date, amount, contract_id) VALUES (2, '', '', 500, 3);
+
+            <!--Таблица «Доставка»-->
+            INSERT INTO public.shipment (id, s_date_expected, s_date_actual, location_id, r_date_expected, r_date_actual, contract_id) VALUES (4, null, '2018-05-01', 3, null, '2018-05-17', 2);
+            INSERT INTO public.shipment (id, s_date_expected, s_date_actual, location_id, r_date_expected, r_date_actual, contract_id) VALUES (5, null, '2018-05-01', 2, null, '2018-05-02', 2);
+            INSERT INTO public.shipment (id, s_date_expected, s_date_actual, location_id, r_date_expected, r_date_actual, contract_id) VALUES (1, null, '2018-05-14', 1, null, '2018-05-17', 1);
+            INSERT INTO public.shipment (id, s_date_expected, s_date_actual, location_id, r_date_expected, r_date_actual, contract_id) VALUES (2, null, '2018-04-25', 2, null, '2018-04-30', 1);
+            INSERT INTO public.shipment (id, s_date_expected, s_date_actual, location_id, r_date_expected, r_date_actual, contract_id) VALUES (3, null, '2018-05-01', 1, null, '2018-05-03', 1);
+            INSERT INTO public.shipment (id, s_date_expected, s_date_actual, location_id, r_date_expected, r_date_actual, contract_id) VALUES (6, null, null, 1, null, null, 1);
+
+            <!--Таблица «Доставка-Товар»-->
+            INSERT INTO public.shipment__product (shipment_id, product_id, count) VALUES (1, 1, 2);
+            INSERT INTO public.shipment__product (shipment_id, product_id, count) VALUES (1, 2, 1);
+            INSERT INTO public.shipment__product (shipment_id, product_id, count) VALUES (1, 3, 4);
+            INSERT INTO public.shipment__product (shipment_id, product_id, count) VALUES (2, 1, 4);
+            INSERT INTO public.shipment__product (shipment_id, product_id, count) VALUES (3, 1, 1);
+        </sql>
+    </changeSet>
 </databaseChangeLog>
