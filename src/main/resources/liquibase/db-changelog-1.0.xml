@@ -177,4 +177,26 @@ NO ACTION" referencedColumnNames="id" referencedTableCatalogName="logistics" ref
             INSERT INTO public.shipment__product (shipment_id, product_id, count) VALUES (3, 1, 1);
         </sql>
     </changeSet>
+    <changeSet author="anton.kuznetsov (generated)" id="1526809616390-17" runOnChange="true">
+        <createProcedure>
+            <![CDATA[
+                CREATE OR REPLACE FUNCTION addToAudit() RETURNS TRIGGER AS $$
+                DECLARE
+                  id int;
+                BEGIN
+                  IF TG_OP = 'INSERT' THEN
+                    IF NEW.amount > 10000 THEN
+                      id = NEW.id;
+                      INSERT INTO audit(contract_id) values (id);
+                    END IF;
+                    RETURN NEW;
+                  END IF;
+                END;
+                $$ LANGUAGE plpgsql;
+
+                CREATE TRIGGER t_contract
+                  AFTER INSERT ON contract FOR EACH ROW EXECUTE PROCEDURE addToAudit();
+            ]]>
+        </createProcedure>
+    </changeSet>
 </databaseChangeLog>
