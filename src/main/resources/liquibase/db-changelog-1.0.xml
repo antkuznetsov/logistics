@@ -66,6 +66,7 @@
             <column name="r_date_expected" type="date"/>
             <column name="r_date_actual" type="date"/>
             <column name="contract_id" type="INT4"/>
+            <column name="next_shipment_id" type="INT4"/>
         </createTable>
     </changeSet>
     <changeSet author="anton.kuznetsov (generated)" id="1526809616390-6">
@@ -194,8 +195,46 @@ NO ACTION" referencedColumnNames="id" referencedTableCatalogName="logistics" ref
                 END;
                 $$ LANGUAGE plpgsql;
 
-                CREATE TRIGGER t_contract
-                  AFTER INSERT ON contract FOR EACH ROW EXECUTE PROCEDURE addToAudit();
+                CREATE TRIGGER t_contract AFTER INSERT ON contract FOR EACH ROW EXECUTE PROCEDURE addToAudit();
+            ]]>
+        </createProcedure>
+    </changeSet>
+    <changeSet author="anton.kuznetsov (generated)" id="1526809616390-18" runOnChange="true">
+        <createProcedure>
+            <!--
+            ВНИМАНИЕ! Данный тригер не поддерживает разбивку нескольких единиц одного товара по разным доставкам. Т.е. если
+            в заказе уже содержиться 9 товаров, то при добавлении еще одного товара в количестве 3 шт. они успешно привяжутся.
+            Разбиение на 1 шт. в этот заказ и 2 шт. в новый не произойдет.
+            -->
+            <![CDATA[
+                CREATE OR REPLACE FUNCTION checkProductCountInShipment() RETURNS TRIGGER AS $$
+                DECLARE
+                  ship_prod record;
+                  ship record;
+                BEGIN
+                  IF TG_OP = 'INSERT' THEN
+                    SELECT shipment_id, SUM(count) as count INTO ship_prod FROM shipment__product WHERE shipment_id = NEW.shipment_id GROUP BY shipment_id;
+                    raise notice 'ID %', ship_prod.shipment_id;
+                    raise notice 'количество %', ship_prod.count;
+                    IF ship_prod.count > 10 THEN
+                      raise notice 'Разбиваем доставку';
+                      raise notice 'Проверяем поле next_shipment_id';
+                      SELECT * INTO ship FROM shipment WHERE id = NEW.shipment_id;
+                      raise notice 'next_shipment_id = %', ship.next_shipment_id;
+                      IF ship.next_shipment_id IS NULL THEN
+                        raise notice 'Копируем доставку';
+                      ELSE
+                        raise notice 'Привязываем товар к доставке из поля next_shipment_id';
+                      END IF;
+                    ELSE
+                      raise notice 'Оставляем как есть';
+                    END IF;
+                  END IF;
+                  RETURN NEW;
+                END;
+                $$ LANGUAGE plpgsql;
+
+                CREATE TRIGGER product_counter AFTER INSERT ON shipment__product FOR EACH ROW EXECUTE PROCEDURE checkProductCountInShipment();
             ]]>
         </createProcedure>
     </changeSet>
