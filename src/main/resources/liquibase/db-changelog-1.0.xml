@@ -111,8 +111,7 @@
     </changeSet>
 
     <changeSet author="anton.kuznetsov (generated)" id="1526809616390-10">
-        <addForeignKeyConstraint baseColumnNames="product_id" baseTableCatalogName="logistics" baseTableName="shipment__product" baseTableSchemaName="public" constraintName="product_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="
-NO ACTION" referencedColumnNames="id" referencedTableCatalogName="logistics" referencedTableName="product" referencedTableSchemaName="public"/>
+        <addForeignKeyConstraint baseColumnNames="product_id" baseTableCatalogName="logistics" baseTableName="shipment__product" baseTableSchemaName="public" constraintName="product_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableCatalogName="logistics" referencedTableName="product" referencedTableSchemaName="public"/>
     </changeSet>
     <changeSet author="anton.kuznetsov (generated)" id="1526809616390-11">
         <addForeignKeyConstraint baseColumnNames="contract_id" baseTableCatalogName="logistics" baseTableName="audit" baseTableSchemaName="public" constraintName="contract_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
@@ -135,40 +134,40 @@ NO ACTION" referencedColumnNames="id" referencedTableCatalogName="logistics" ref
     <changeSet author="anton.kuznetsov (generated)" id="1526809616390-16">
         <sql>
             <!--Таблица «Организация-заказчик»-->
-            INSERT INTO public.organization (id, name) VALUES (1, 'ООО Бестранк');
-            INSERT INTO public.organization (id, name) VALUES (2, 'ООО Ай-Теко');
+            INSERT INTO public.organization (name) VALUES ('ООО Бестранк');
+            INSERT INTO public.organization (name) VALUES ('ООО Ай-Теко');
 
             <!--Таблица «Товар»-->
-            INSERT INTO public.product (id, name) VALUES (1, 'iPhone');
-            INSERT INTO public.product (id, name) VALUES (2, 'Samsung');
-            INSERT INTO public.product (id, name) VALUES (3, 'Nokia');
-            INSERT INTO public.product (id, name) VALUES (4, 'Xiaomi');
-            INSERT INTO public.product (id, name) VALUES (5, 'Motorola');
+            INSERT INTO public.product (name) VALUES ('iPhone');
+            INSERT INTO public.product (name) VALUES ('Samsung');
+            INSERT INTO public.product (name) VALUES ('Nokia');
+            INSERT INTO public.product (name) VALUES ('Xiaomi');
+            INSERT INTO public.product (name) VALUES ('Motorola');
 
             <!--Таблица «Место доставки»-->
-            INSERT INTO public.location (id, city, address) VALUES (3, 'Санкт-Петербург', 'Лиговский 54');
-            INSERT INTO public.location (id, city, address) VALUES (1, 'Санкт-Петербург', 'Невский 151');
-            INSERT INTO public.location (id, city, address) VALUES (2, 'Иннополис', 'Спортивная 116');
+            INSERT INTO public.location (city, address) VALUES ('Санкт-Петербург', 'Невский 151');
+            INSERT INTO public.location (city, address) VALUES ('Иннополис', 'Спортивная 116');
+            INSERT INTO public.location (city, address) VALUES ('Санкт-Петербург', 'Лиговский 54');
 
             <!--Таблица «Договор»-->
-            INSERT INTO public.contract (id, amount, details, organization_id) VALUES (1, 50000, 'Тест', 1);
-            INSERT INTO public.contract (id, amount, details, organization_id) VALUES (2, 10000, 'Тест 2', 2);
-            INSERT INTO public.contract (id, amount, details, organization_id) VALUES (3, 500, 'Тест 3', 1);
+            INSERT INTO public.contract (amount, details, organization_id) VALUES (50000, 'Тест', 1);
+            INSERT INTO public.contract (amount, details, organization_id) VALUES (10000, 'Тест 2', 2);
+            INSERT INTO public.contract (amount, details, organization_id) VALUES (500, 'Тест 3', 1);
 
             <!--Таблица «Платеж по договору»-->
-            INSERT INTO public.payment (id, type, date, amount, contract_id) VALUES (1, '', '', 250, 1);
-            INSERT INTO public.payment (id, type, date, amount, contract_id) VALUES (3, '', '', 100, 2);
-            INSERT INTO public.payment (id, type, date, amount, contract_id) VALUES (4, '', '', 270, 1);
-            INSERT INTO public.payment (id, type, date, amount, contract_id) VALUES (5, '', '', 230, 2);
-            INSERT INTO public.payment (id, type, date, amount, contract_id) VALUES (2, '', '', 500, 3);
+            INSERT INTO public.payment (type, date, amount, contract_id) VALUES ('', '', 250, 1);
+            INSERT INTO public.payment (type, date, amount, contract_id) VALUES ('', '', 500, 3);
+            INSERT INTO public.payment (type, date, amount, contract_id) VALUES ('', '', 100, 2);
+            INSERT INTO public.payment (type, date, amount, contract_id) VALUES ('', '', 270, 1);
+            INSERT INTO public.payment (type, date, amount, contract_id) VALUES ('', '', 230, 2);
 
             <!--Таблица «Доставка»-->
-            INSERT INTO public.shipment (id, s_date_expected, s_date_actual, location_id, r_date_expected, r_date_actual, contract_id) VALUES (4, null, '2018-05-01', 3, null, '2018-05-17', 2);
-            INSERT INTO public.shipment (id, s_date_expected, s_date_actual, location_id, r_date_expected, r_date_actual, contract_id) VALUES (5, null, '2018-05-01', 2, null, '2018-05-02', 2);
-            INSERT INTO public.shipment (id, s_date_expected, s_date_actual, location_id, r_date_expected, r_date_actual, contract_id) VALUES (1, null, '2018-05-14', 1, null, '2018-05-17', 1);
-            INSERT INTO public.shipment (id, s_date_expected, s_date_actual, location_id, r_date_expected, r_date_actual, contract_id) VALUES (2, null, '2018-04-25', 2, null, '2018-04-30', 1);
-            INSERT INTO public.shipment (id, s_date_expected, s_date_actual, location_id, r_date_expected, r_date_actual, contract_id) VALUES (3, null, '2018-05-01', 1, null, '2018-05-03', 1);
-            INSERT INTO public.shipment (id, s_date_expected, s_date_actual, location_id, r_date_expected, r_date_actual, contract_id) VALUES (6, null, null, 1, null, null, 1);
+            INSERT INTO public.shipment (s_date_expected, s_date_actual, location_id, r_date_expected, r_date_actual, contract_id, next_shipment_id) VALUES (null, '2018-05-14', 1, null, '2018-05-17', 1, null);
+            INSERT INTO public.shipment (s_date_expected, s_date_actual, location_id, r_date_expected, r_date_actual, contract_id, next_shipment_id) VALUES (null, '2018-04-25', 2, null, '2018-04-30', 1, null);
+            INSERT INTO public.shipment (s_date_expected, s_date_actual, location_id, r_date_expected, r_date_actual, contract_id, next_shipment_id) VALUES (null, '2018-05-01', 1, null, '2018-05-03', 1, null);
+            INSERT INTO public.shipment (s_date_expected, s_date_actual, location_id, r_date_expected, r_date_actual, contract_id, next_shipment_id) VALUES (null, '2018-05-01', 3, null, '2018-05-17', 2, null);
+            INSERT INTO public.shipment (s_date_expected, s_date_actual, location_id, r_date_expected, r_date_actual, contract_id, next_shipment_id) VALUES (null, '2018-05-01', 2, null, '2018-05-02', 2, null);
+            INSERT INTO public.shipment (s_date_expected, s_date_actual, location_id, r_date_expected, r_date_actual, contract_id, next_shipment_id) VALUES (null, null, 1, null, null, 1, null);
 
             <!--Таблица «Доставка-Товар»-->
             INSERT INTO public.shipment__product (shipment_id, product_id, count) VALUES (1, 1, 2);
