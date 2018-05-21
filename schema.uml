@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Diagram>
   <ID>DATABASE</ID>
-  <OriginalElement>d634982f-a493-4d18-bdf7-039786df730c.TABLE:logistics.public.shipment__product</OriginalElement>
+  <OriginalElement>d634982f-a493-4d18-bdf7-039786df730c.TABLE:logistics.public.contract</OriginalElement>
   <nodes>
-    <node x="571.0" y="349.0">d634982f-a493-4d18-bdf7-039786df730c.TABLE:logistics.public.product</node>
-    <node x="35.0" y="294.0">d634982f-a493-4d18-bdf7-039786df730c.TABLE:logistics.public.shipment</node>
-    <node x="241.75" y="125.0">d634982f-a493-4d18-bdf7-039786df730c.TABLE:logistics.public.contract</node>
-    <node x="398.0" y="316.0">d634982f-a493-4d18-bdf7-039786df730c.TABLE:logistics.public.payment</node>
+    <node x="585.25" y="360.0">d634982f-a493-4d18-bdf7-039786df730c.TABLE:logistics.public.product</node>
+    <node x="412.25" y="327.0">d634982f-a493-4d18-bdf7-039786df730c.TABLE:logistics.public.payment</node>
+    <node x="256.59375" y="125.0">d634982f-a493-4d18-bdf7-039786df730c.TABLE:logistics.public.contract</node>
+    <node x="272.09375" y="0.0">d634982f-a493-4d18-bdf7-039786df730c.TABLE:logistics.public.organization</node>
     <node x="0.0" y="136.0">d634982f-a493-4d18-bdf7-039786df730c.TABLE:logistics.public.location</node>
-    <node x="257.25" y="0.0">d634982f-a493-4d18-bdf7-039786df730c.TABLE:logistics.public.organization</node>
-    <node x="288.1666666666667" y="529.0">d634982f-a493-4d18-bdf7-039786df730c.TABLE:logistics.public.shipment__product</node>
-    <node x="225.0" y="349.0">d634982f-a493-4d18-bdf7-039786df730c.TABLE:logistics.public.audit</node>
+    <node x="30.25" y="294.0">d634982f-a493-4d18-bdf7-039786df730c.TABLE:logistics.public.shipment</node>
+    <node x="297.6666666666667" y="551.0">d634982f-a493-4d18-bdf7-039786df730c.TABLE:logistics.public.shipment__product</node>
+    <node x="239.25" y="360.0">d634982f-a493-4d18-bdf7-039786df730c.TABLE:logistics.public.audit</node>
   </nodes>
   <notes />
   <edges>
     <edge source="d634982f-a493-4d18-bdf7-039786df730c.TABLE:logistics.public.shipment__product" target="d634982f-a493-4d18-bdf7-039786df730c.TABLE:logistics.public.product">
       <point x="39.5" y="-48.0" />
-      <point x="406.6666666666667" y="504.0" />
-      <point x="643.0" y="504.0" />
+      <point x="416.1666666666667" y="526.0" />
+      <point x="657.25" y="526.0" />
       <point x="0.0" y="37.5" />
     </edge>
     <edge source="d634982f-a493-4d18-bdf7-039786df730c.TABLE:logistics.public.contract" target="d634982f-a493-4d18-bdf7-039786df730c.TABLE:logistics.public.organization">
@@ -26,34 +26,34 @@
     </edge>
     <edge source="d634982f-a493-4d18-bdf7-039786df730c.TABLE:logistics.public.audit" target="d634982f-a493-4d18-bdf7-039786df730c.TABLE:logistics.public.contract">
       <point x="0.0" y="-37.5" />
-      <point x="301.5" y="269.0" />
-      <point x="329.25" y="269.0" />
+      <point x="315.75" y="269.0" />
+      <point x="344.09375" y="269.0" />
       <point x="0.0" y="59.5" />
     </edge>
     <edge source="d634982f-a493-4d18-bdf7-039786df730c.TABLE:logistics.public.shipment__product" target="d634982f-a493-4d18-bdf7-039786df730c.TABLE:logistics.public.shipment">
       <point x="-39.5" y="-48.0" />
-      <point x="327.6666666666667" y="504.0" />
-      <point x="120.0" y="504.0" />
-      <point x="0.0" y="92.5" />
+      <point x="337.1666666666667" y="526.0" />
+      <point x="124.75" y="526.0" />
+      <point x="0.0" y="103.5" />
     </edge>
     <edge source="d634982f-a493-4d18-bdf7-039786df730c.TABLE:logistics.public.payment" target="d634982f-a493-4d18-bdf7-039786df730c.TABLE:logistics.public.contract">
       <point x="0.0" y="-70.5" />
-      <point x="474.5" y="269.0" />
-      <point x="387.58333333333337" y="269.0" />
+      <point x="488.75" y="269.0" />
+      <point x="402.42708333333337" y="269.0" />
       <point x="58.33333333333337" y="59.5" />
     </edge>
     <edge source="d634982f-a493-4d18-bdf7-039786df730c.TABLE:logistics.public.shipment" target="d634982f-a493-4d18-bdf7-039786df730c.TABLE:logistics.public.location">
-      <point x="-42.5" y="-92.5" />
+      <point x="-47.25" y="-103.5" />
       <point x="0.0" y="48.5" />
     </edge>
     <edge source="d634982f-a493-4d18-bdf7-039786df730c.TABLE:logistics.public.shipment" target="d634982f-a493-4d18-bdf7-039786df730c.TABLE:logistics.public.contract">
-      <point x="42.5" y="-92.5" />
-      <point x="162.5" y="269.0" />
-      <point x="270.9166666666667" y="269.0" />
+      <point x="47.25" y="-103.5" />
+      <point x="172.0" y="269.0" />
+      <point x="285.7604166666667" y="269.0" />
       <point x="-58.333333333333314" y="59.5" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="1.0" x="357.5" y="312.5" />
+  <settings layout="Hierarchic Group" zoom="1.0" x="365.0" y="323.5" />
   <SelectedNodes />
   <Categories>
     <Category>Key columns</Category>
